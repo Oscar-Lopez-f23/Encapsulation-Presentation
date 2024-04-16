@@ -18,7 +18,7 @@
 	4. Decorator?
 	5. Strategy
 - Heuristics && code smells: 
-	1. coupling/cohesion
+	1. coupling and cohesion
 	2. Modules using internal state can be broken down into their own unit
   3. Expose only necessary functionality, 
 		prevent unintended access and modification of internal state: HOW?

@@ -1,6 +1,5 @@
 # Encapsulation Presentation Plan
 
-Plan
 - What is encapsulation
 	- Definition: putting state and the behavior operating on that state together in a single unit.
 	- Encapsulation helps in hiding the internal state of an object and exposing only the 
@@ -34,8 +33,7 @@ Plan
 	- look for left right code
 	- Modules using internal state can be broken down into their own unit
 	- Check for classes that have access to state outside of its own, Ask why and if its necessary
-  	- Expose only necessary functionality, 
-		prevent unintended access and modification of internal state: HOW?
+  	- Expose only necessary functionality, prevent unintended access and modification of internal state: HOW?
 	- define contracts; this enforces behaviors
 - How to: semi-live code sample
 	- Point of sale
@@ -48,6 +46,11 @@ Plan
 	- what do the "gang of four" say about encapsulation?
 	- how does that contrast with someone like Bertrand Meyer?
 	- should I consider encapsulation when designing a solution in my day to day work?
+	- perspective on this, would be Eric Evans
+
+- Books
+	- Refactoring by Martin Fowler
+	- Refactoring to Patterns by Joshua Kerievsky
 
 https://en.wikipedia.org/wiki/Coupling_(computer_programming)#:~:text=In%20software%20engineering%2C%20coupling%20is,Coupling%20and%20cohesion
 https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/tutorials/oop

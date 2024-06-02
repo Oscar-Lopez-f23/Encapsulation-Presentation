@@ -30,8 +30,7 @@
  				complex modules.")
 
 - Misc: 
-	- web apps vs mobile/desktop: explain how state management in web apps is not as demanding
-	 in web apps compared to mobile/desktop
+	- web apps vs mobile/desktop: explain how state management in web apps is not as demanding compared to mobile/desktop
 
 - IRL examples:
 	- SRP

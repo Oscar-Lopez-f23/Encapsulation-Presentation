@@ -84,12 +84,12 @@
 - good naming conventions are a form of documentation and help identify design violations for example a class named JsonParserAndValidator which describes multiple responsibilities and violating SRP
 
 ### How to: semi-live code sample
-	- Point of sale
-	- Member Variable Encapsulation
-	- Function Encapsulation
-	- UML before each refactor
-	- USE ECS CALCULATOR CODE
-
+- Point of sale
+- Member Variable Encapsulation
+- Function Encapsulation
+- UML before each refactor
+- USE ECS CALCULATOR CODE
+----------------------------------------------
 - POTTS NOTES
 	- what do the "gang of four" say about encapsulation?
 	- how does that contrast with someone like Bertrand Meyer?

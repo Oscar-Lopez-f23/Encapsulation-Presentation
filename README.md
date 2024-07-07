@@ -33,30 +33,57 @@ Plan
 		- Command pattern: design pattern in which an object is used to encapsulate all information needed to perform an action or trigger an event at a later time
 	- structural patterns : design patterns that ease the design by identifying a simple way to realize relationships among entities. Patterns like Adapter, Facade, and Mediator are specifically designed to improve encapsulation by providing a simplified interface to complex subsystems.
 
+- coupling/cohesion: 
+		- coupling in programming refers to how classes are connected. 
+		- cohesion is the degree to which the elements inside a module belong together in other words how closely related and focused the responsibilities are
+
+		We want low coupling so that classes are not too dependant on others as a change to one class can cause a number of changes to another, and high cohesion so we have all related code in one place. Anything that resembles some sort of God class, or a class that does more than one of the things below is not cohesive:
+			- Access data located on a disk, database or network
+			- Deserialises the data to an object
+			- Displays the data to the user
+			- Gets an input from the user to perform an operation on the data
+			- Persists the changes back to the data
+
+- composition and aggregation (WITH EXAMPLES) : aggregation and composition are the main ways of implementing an encapsulating class. 
+		- Aggregation:
+			- Aggregation represents a "has-a" relationship where the contained class can exist independently of the whole.
+			- It promotes loose coupling because the lifecycle of the contained class is not dependent on the lifecycle of the whole class.
+
+		- Composition:
+			- Composition represents a "part-of" relationship where the contained class can only exist as part of the whole.
+			- While it doesn't promote loose coupling, composition is ideal for highly cohesive classes where the parts and the whole are tightly bound and work together as a single unit.
+
+		Example to use: Order has a shopping cart (composition) -> shopping cart is made of products (aggregation)
+
 - Heuristics: 
-	- coupling/cohesion: Coupling in programming refers to how classes are connected, and cohesion is the degree to which the elements inside a module belong together in other words how closely related and focused the responsibilities are. We want low coupling so that classes are not too dependant on others as a change to one class can cause a number of changes to another, and high cohesion so we have all related code in one place. Anything that resembles some sort of God class, or a class that does more than one of the things below is not cohesive:
-		- Access data located on a disk, database or network
-		- Deserialises the data to an object
-		- Displays the data to the user
-		- Gets an input from the user to perform an operation on the data
-		- Persists the changes back to the data
+	- look for left right code: if you find variables being modified it might be a sign that the data edited can be encapsulated, some signs include
+		- CRY (Continuesly repeting yourself) code (can be multiple instances of a variable being modified)
+		- different/multiple responsibilities from containing class/method
+		- creation of new instances
+		- high cyclomatic complexity
 	- heap vs stack: if a value is passed by reference from another module we are editing another classes internal state. Everything in c# is actually passed by value but classes are reference types so their reference is passed by value, but variables passed with the ref or out keyword are passed by reference. b/c the classes reference is passed by value its properties are vulnerable to changes if not readonly but if the receiving method assings the object parameter to a new instance, the original instance passed in from the caller wont be modified.
 	- Kerievsky's Encapsulate Subclasses with Creation Methods: hide implementation details
-	- composition and aggregation
-	- Data hiding: Ensures data integrity and prevents unauthorized access and modification. Achieved through access control like private, protected, and public specifiers.
-	- class, variable and function encap
-	- look for left right code
+	- class, variable and function encap: set any 
+	- Data hiding: Ensures data integrity and prevents unauthorized access and modification. Expose only necessary functionality, prevent unintended access and modification of internal state. Achieved through access control like private, protected, and public specifiers.
 	- Modules using internal state can be broken down into their own unit
 	- Check for classes that have access to state outside of its own, Ask why and if its necessary
-  	- Expose only necessary functionality, prevent unintended access and modification of internal state: HOW?
-	- define contracts; this enforces behaviors
+	- Design by contract: define clear and minimal contracts; this enforces behaviors like only exposing what needs to be exposed and prevents clients from being forced to depend on methods they do not use that can most likely modify data when it should not (Interface segregation)
+	- encapsulate what varies: Identify and encapsulate aspects of your code that are likely to change. some example include business logic, I/O opperations, settings, customization, configuration, complex algorithms and areas of high coupling
+	- keep classes and methods short
+	- document code and create good naming conventions
 
 - Heuristics Examples:
+	- left right code: payment processor has a method called ProcessOrder where it has a total variable and it keeps modifying it with different private methods withing the class, first total = CalculateTotal(order), then total = ApplyCoupons(order.CouponsArr), then total = ApplyStateTaxes(order)
 	- coupling: 2 classes, ShoppingCart and PaymentProcessor, if the Payment Processor class depends on shopping cart any changes done to shopping cart might mean that Payment Processor needs to change as well so we introduce a contract that payment processor can use instead of shopping cart. shopping cart can implement it so that the paymnet processor does not care who the consumer is as long as they follow the contracts rules.
 	- cohesion: our payment processor shouldn't be responsible for saving the data to the database as it already has run operations on the shopping cart data to pay for the order. this job should be part of a repository who's contract is injected to the payment processor keeping coupling low
 	- ref types: avoid using ref/out keyword and if passing a class make its properties readonly.
 	- Kerievsky encapsulate subclasses: show kerievskys example in refactoring to patterns page 15
-	- 
+	- cfv encap: anything that should be only accessible within the class should be private, as an example using Kerievsky's pattern where the base class is public but all implementations can be private and only accessible to the base class, as for variables and methods this is pretty easy just set them as private and should only be accessed by other code within the same class
+	- data hiding: 
+	- Design by contract: a class like payment processor that inherits from an interface whihc only has one method defined like ProccessPayment() but the implementation has multiple public methods and variables which are not accessible b/c of the contract (not that having them public is a good practice)
+	- Document code: use wiki in ADO to explain processes and conventions the team is using (ex: all classes that track creation/update date must inherit from a specific interface so that an automated process updates those during data changes). Code can have comments specifying the purpose of classes, methods and variables.
+		Just b/c code is understandable does not mean its purpose is clear especially in business logic.
+	- good naming conventions are a form of documentation and help identify design violations for example a class named JsonParserAndValidator which describes multiple responsibilities and violating SRP
 
 - How to: semi-live code sample
 	- Point of sale
@@ -75,11 +102,8 @@ Plan
 	- Refactoring by Martin Fowler
 	- Refactoring to Patterns by Joshua Kerievsky
 
-
-get academics- my representation of what the sources say
-aggregation vs composition?
-data hiding vs encapsulation
-
+SOURCES:
+ChatGPT
 https://www.youtube.com/watch?v=JHGkaShoyNs
 https://github.com/abhinavkorpal/awesome-computer-science-EBook/tree/master
 https://en.wikipedia.org/wiki/Behavioral_pattern
